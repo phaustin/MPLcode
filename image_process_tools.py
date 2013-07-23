@@ -7,7 +7,7 @@ Created on Thu Apr 25 15:43:23 2013
 
 import numpy
 
-def smooth(x,window_len=11,window='hanning'):
+def smooth_1D(x,window_len=11,window='hanning'):
     """smooth the data using a window with requested size.
     
     This method is based on the convolution of a scaled window with the signal.
@@ -83,6 +83,7 @@ def blur_image(im, (nx,ny), kernel = 'Gaussian'):
     """
     from scipy import signal
     import numpy as np
+    import pandas as pan
     
     if kernel == 'Gaussian':        
         g = gauss_kern(nx, sizey=ny)
@@ -91,7 +92,10 @@ def blur_image(im, (nx,ny), kernel = 'Gaussian'):
         g = g / g.sum()
     else:
         raise ValueError, "Kernel must be either Gaussian or Flat"
-        
-    improc = signal.convolve(im,g, mode='same')
-    return improc
+    print "Image blurring in progres ..."    
+    improc = signal.convolve(im.values,g, mode='same')
+    
+    imout = pan.DataFrame(improc, index= im.index, columns = im.columns)
+    print "...Done!"
+    return imout
 
