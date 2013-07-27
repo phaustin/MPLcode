@@ -14,10 +14,13 @@ import numpy as np
 import pandas as pan
 import matplotlib.pyplot as plt
 import pickle
+from matplotlib.colors import Normalize
+from matplotlib import cm
+
 #from plot_fields import loadvars
 
 ## import fasthist as fh
-## from binit import fastbin
+## from binit import fastin
 
 from matplotlib.colors import Normalize
 from matplotlib import cm
@@ -65,57 +68,33 @@ the_axis.set_ylabel('copolvals')
 the_axis.set_title('raw scatterplot')
 fig.savefig('plot1.png')
 fig.canvas.draw()
+
+import fasthist as h2d
+depolhist=h2d.fullhist(depolvals,20,0.24,0.42,-9999.,-8888.)
+copolhist=h2d.fullhist(copolvals,20,0.,1.6e-3,-9999.,-8888.)
+theOut=h2d.hist2D(copolhist['fullbins'],depolhist['fullbins'],copolhist['numBins'],\
+                  depolhist['numBins'])
+
+cmap=cm.bone
+cmap.set_over('r')
+cmap.set_under('b')
+
+fig=plt.figure(2)
+fig.clf()
+axis1=fig.add_subplot(111)
+counts=theOut['coverage']
+counts[counts < 1] = 1
+logcounts=np.log10(counts)
+im=axis1.pcolormesh(depolhist['centers'],copolhist['centers'],logcounts,
+                    cmap=cmap)
+cb=plt.colorbar(im,extend='both')
+title="2-d histogram"
+colorbar="log10(counts)"
+the_label=cb.ax.set_ylabel(colorbar,rotation=270)
+axis1.set_xlabel('depolvals')
+axis1.set_ylabel('copolvals')
+axis1.set_title(title)
+fig.canvas.draw()
+fig.savefig('plot2.png')
 plt.show()
 
-import hist2d as h2d
-depolhist=h2d.fullhist(depolvals,20,0.24,0.42,-9999.,8888.)
-copolhist=h2d.fullhist(copolvals,20,0.,1.6e-3,-9999.,8888.)
-
-
-## bin_copol=fastbin(0.,0.002,100.,-999,-888)
-## bin_depol=fastbin(0.,0.5,100.,-999,-888)
-
-## copol_centers=bin_copol.get_centers()
-## depol_centers=bin_depol.get_centers()
-## the_hist=fh.pyhist(depolvals,copolvals,bin_depol,bin_copol)
-
-## counts=the_hist.get_hist2d()
-
-## cmap=cm.RdBu_r
-## cmap.set_over('y')
-## cmap.set_under('k')
-## counts=counts.astype(np.float32)
-## vmin= 0.
-## vmax= 4
-## the_norm=Normalize(vmin=vmin,vmax=vmax,clip=False)
-## hit= (counts <= 0)
-## counts[hit] = 1.e-3
-## log_counts=np.log10(counts)
-
-## olddir = os.getcwd()
-
-## try:
-##     os.chdir('Plots')
-## except WindowsError:
-##     os.makedirs('Plots')
-##     os.chdir('Plots')
-
-## fig1=plt.figure(1)
-## fig1.clf()
-## axis1=fig1.add_subplot(111)
-## im=axis1.pcolormesh(depol_centers,copol_centers,log_counts,cmap=cmap,norm=the_norm)
-## cb=fig1.colorbar(im,extend='both')
-## the_label=cb.ax.set_ylabel('histogram counts',rotation=270)
-## #axis1.set_title('{} histogram'.format(granule_info))
-## axis1.set_ylabel('Attenuated Backscatter')
-## axis1.set_xlabel('Depol ratio')
-## #fig1.savefig('{0:s}/{1:s}_hist2d.png'.format(dirname,granule_info))
-
-## fig2 = plt.figure(2)
-## fig2.clf()
-## axis2 = fig2.add_subplot(111)
-## hist = axis2.hist(depolvals, bins = 100)
-
-## plt.show()
-
-## os.chdir(olddir)

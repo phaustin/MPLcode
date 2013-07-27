@@ -13,15 +13,15 @@ import imp
 # by passing the .so file and library
 # directory in the command line:
 # add_custom_target(test COMMAND ${PYTHON} ${CMAKE_SOURCE_DIR}/test_hist.py
-#              hist2d ${LIBRARY_OUTPUT_PATH}
-#              DEPENDS hist2d COMMENT "execute test_hist")
+#              fasthist ${LIBRARY_OUTPUT_PATH}
+#              DEPENDS fasthist COMMENT "execute test_hist")
 #
 
 (modname,modpath)=sys.argv[1:]
 print "trying %s %s" % (modname,modpath)
 
 #
-# import $modpath/hist2d.so
+# import $modpath/fasthist.so
 #
 openFile=None
 try:
