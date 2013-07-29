@@ -66,8 +66,9 @@ the_axis.plot(depolvals,copolvals,'b+')
 the_axis.set_xlabel('depolvals')
 the_axis.set_ylabel('copolvals')
 the_axis.set_title('raw scatterplot')
-fig.savefig('plot1.png')
 fig.canvas.draw()
+fig.savefig('plot1.png')
+plt.close(fig)
 
 import fasthist as h2d
 depolhist=h2d.fullhist(depolvals,20,0.24,0.42,-9999.,-8888.)
@@ -96,5 +97,6 @@ axis1.set_ylabel('copolvals')
 axis1.set_title(title)
 fig.canvas.draw()
 fig.savefig('plot2.png')
-plt.show()
+plt.close(fig)
+
 
