@@ -71,8 +71,10 @@ fig.savefig('plot1.png')
 #plt.close(fig)
 
 import fasthist as h2d
-depolhist=h2d.fullhist(depolvals,20,0.24,0.42,-9999.,-8888.)
-copolhist=h2d.fullhist(copolvals,20,0.,1.6e-3,-9999.,-8888.)
+## depolhist=h2d.fullhist(depolvals,20,0.24,0.42,-9999.,-8888.)
+## copolhist=h2d.fullhist(copolvals,20,0.,1.6e-3,-9999.,-8888.)
+depolhist=h2d.fullhist(depolvals,200,0.24,0.42,-9999.,-8888.)
+copolhist=h2d.fullhist(copolvals,200,0.,1.6e-3,-9999.,-8888.)
 theOut=h2d.hist2D(copolhist['fullbins'],depolhist['fullbins'],copolhist['numBins'],\
                   depolhist['numBins'])
 
@@ -97,6 +99,13 @@ axis1.set_ylabel('copolvals')
 axis1.set_title(title)
 fig.canvas.draw()
 fig.savefig('plot2.png')
+
+fig=plt.figure(3)
+fig.clf()
+axis3=fig.add_subplot(111)
+im=axis3.imshow(logcounts,cmap=cmap)
+plt.colorbar(im,extend='both')
+plt.show()
 #plt.close(fig)
 
 
