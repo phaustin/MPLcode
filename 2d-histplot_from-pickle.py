@@ -106,6 +106,7 @@ axis3=fig.add_subplot(111)
 im=axis3.imshow(logcounts,cmap=cmap)
 plt.colorbar(im,extend='both')
 plt.show()
+plt.savefig('plot3.png')
 #plt.close(fig)
 
 
