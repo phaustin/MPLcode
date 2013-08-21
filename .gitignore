@@ -2,3 +2,6 @@
 *png
 *~
 *orig
+fasthist.cpp
+fasthist.pyd
+build
