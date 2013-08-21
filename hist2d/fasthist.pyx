@@ -20,20 +20,20 @@ def  fullhist(object dataVecPy, int numbins, float mindata,
        dataVecPy with the bin of every datapoint
     """
     dataVecPy=np.ascontiguousarray(dataVecPy,dtype=np.float64)
-    cdef np.ndarray[np.double_t,ndim=1] dataVec = dataVecPy
-    cdef double* dataPtr=<double*>dataVec.data
-    cdef float binsize=(maxdata-mindata)/numbins
+    cdef np.ndarray[np.float64_t,ndim=1] dataVec = dataVecPy
+    cdef np.float64_t* dataPtr=<np.float64_t*>dataVec.data
+    cdef np.float64_t binsize=(maxdata-mindata)/numbins
     cdef np.int64_t numPts=dataVec.shape[0]
     cdef np.ndarray[np.int64_t,ndim=1] outcounts = np.zeros([numbins,],dtype=np.int64)
     cdef Py_ssize_t* countPtr=<Py_ssize_t*> outcounts.data
     cdef np.ndarray[np.float32_t,ndim=1] bincenters=np.zeros([numbins,],dtype=np.float32)
-    cdef float* centerPtr=<float*> bincenters.data
+    cdef np.float32_t* centerPtr=<np.float32_t*> bincenters.data
     cdef np.ndarray[np.float32_t,ndim=1] binedges=np.zeros([numbins+1,],dtype=np.float32)
     cdef float* edgePtr=<float*> binedges.data
     cdef np.ndarray[np.int64_t,ndim=1] savebins=np.zeros([numPts,],dtype=np.int64)
     cdef Py_ssize_t* savebinsPtr=<Py_ssize_t*> savebins.data
-    cdef float fbin
-    cdef long lowcount=0, highcount=0
+    cdef np.float64_t fbin
+    cdef np.int64_t lowcount=0, highcount=0
     cdef int i,ibin
     for i in range(numPts):
         fbin =  ((dataPtr[i] - mindata) / binsize)
@@ -127,12 +127,12 @@ def takeValues(object dataVectorPy, object indexList):
     dataVectorPy=dataVectorPy.reshape(-1)
     cdef np.ndarray[np.float32_t,ndim=1] dataVector = dataVectorPy
     outList=[]
-    cdef float* dataPtr=<float*>dataVector.data
+    cdef np.float32_t* dataPtr=<np.float32_t*>dataVector.data
     cdef np.ndarray[np.int64_t,ndim=1] indexVec
     cdef np.ndarray[np.float32_t,ndim=1] takeVec
     cdef int numBins2D=len(indexList)
     cdef int numDataPoints,i,j
-    cdef float* takePtr
+    cdef np.float32_t* takePtr
     for i in range(numBins2D):
         indexVec=indexList[i]
         numDataPoints=len(indexVec)
@@ -151,12 +151,12 @@ def findMean(object dataVectorPy, object indexList,maskedValue= -9999.):
     dataVectorPy=dataVectorPy.reshape(-1)
     cdef np.ndarray[np.float32_t,ndim=1] dataVector = dataVectorPy
     dataList=takeValues(dataVector,indexList)
-    cdef int dataCount=len(dataList)
-    cdef int i
+    cdef np.int32_t dataCount=len(dataList)
+    cdef np.int32_t i
     outList=[]
     areaWeightedOutList=[]
     gridCounts=[]
-    cdef np.ndarray[float,ndim=1] theData
+    cdef np.ndarray[np.float32_t,ndim=1] theData
     for i in range(dataCount):
         theData=dataList[i]
         if len(theData) > 0:
@@ -181,10 +181,10 @@ def findMedian(np.ndarray[float,ndim=1] dataVector, object indexList,maskedValue
     filled with dataVector values
     """
     dataList=takeValues(dataVector,indexList)
-    cdef int dataCount=len(dataList)
-    cdef int i
+    cdef np.int32_t dataCount=len(dataList)
+    cdef np.int32_t i
     outList=[]
-    cdef np.ndarray[float,ndim=1] theData
+    cdef np.ndarray[np.float32_t,ndim=1] theData
     for i in range(dataCount):
         theData=dataList[i]
         if len(theData) > 0:
