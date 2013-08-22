@@ -5,3 +5,6 @@
 fasthist.cpp
 fasthist.pyd
 build
+*.so
+patch
+*.pdf
