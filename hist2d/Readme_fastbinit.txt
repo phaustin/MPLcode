@@ -30,9 +30,11 @@ https://support.enthought.com/entries/23646538-Make-Canopy-s-User-Python-be-your
 Use rapidee to switch between installations by overwriting the path variable using
 one of these commands:
 
-c:/Users/phil/bin/rapidee -S path c:/Users/phil/bin;c:/Anaconda64;c:/Anaconda64/Scripts
+c:/Users/phil/bin/rapidee -S path c:/Users/phil/bin;c:/Anaconda64;c:/Anaconda64/Scripts;"c:\Program Files (x86)\Git\bin"
 c:/Users/phil/bin/rapidee -S path c:/Users/phil/bin;c:/Anaconda32;c:/Anaconda32/Scripts
 c:/Users/phil/bin/rapidee -S path c:/Users/phil/bin/;c:/Users/phil/AppData/Local/Enthought/Canopy32/User/Scripts
+c:\Users\phil\bin\rapidee -S path c:\Users\phil\bin/;c:\Anaconda32;c:\Anaconda32\Scripts;"c:\Program Files (x86)\Git\bin"
+
 
 start a new cmd.exe  to get the correct path
 
